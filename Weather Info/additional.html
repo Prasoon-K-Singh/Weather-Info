@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background: #312c38;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        html,
+        body {
+            font-size: 62.5%;
+            height: 100%;
+        }
+
+        html {
+            background: #eee;
+        }
+
+        .searchBar{
+            width: 100%;
+            margin: auto;
+            margin-left: 50%;
+            margin-right: 50%;
+        }
+        .searchBar input[type=text] {
+            padding: 6px;
+            border-radius: 25px ;
+            border-color: black;
+            font-size: 17px;
+        }
+
+        .box {
+            width: 20vw;
+            height: 60vh;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.2);
+            background: #a5bbdd;
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+            min-width: 20rem;
+            min-height: 35rem;
+        }
+
+        .wave {
+            opacity: 0.3;
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            background: white;
+            width: 50rem;
+            height: 50rem;
+            margin-left: -25rem;
+            margin-top: -25rem;
+            transform-origin: 50% 48%;
+            border-radius: 43%;
+            animation: drift 3000ms infinite linear;
+            z-index: 1;
+        }
+
+        .wave.-three {
+            animation: drift 5000ms infinite linear;
+            z-index: 2 !important;
+            opacity: 0.2;
+        }
+
+        .wave.-two {
+            animation: drift 7000ms infinite linear;
+            opacity: 0.1;
+            z-index: 3 !important;
+        }
+
+        .box:after {
+            content: "";
+            display: block;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 11;
+            transform: translate3d(0, 0, 0);
+        }
+
+        @keyframes drift {
+            from {
+                transform: rotate(0deg);
+            }
+
+            from {
+                transform: rotate(360deg);
+            }
+        }
+
+        .info {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            z-index: 4;
+        }
+
+        .location {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 3rem;
+        }
+
+        .fa-street-view {
+            animation: rotating 3s linear infinite alternate;
+        }
+
+        @keyframes rotating {
+            from {
+                transform: translateX(-0.5rem);
+            }
+
+            to {
+                transform: translateX(0.5rem);
+            }
+        }
+
+        #date {
+            margin-top: 1rem;
+            text-align: center;
+            color: #57606f;
+            font-weight: 300;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .temp {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 3rem;
+        }
+
+        .tempMin_Max {
+            margin-top: 0.5rem;
+            text-align: center;
+            color: #57606f;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        #weathercon {
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10em;
+        }
+
+        #weathercon .fa-solid {
+            margin-top: 10%;
+            font-size: 6rem;
+            animation: anime 3s linear infinite alternate;
+        }
+
+        @keyframes anime {
+            from {
+                transform: scale(1.0);
+            }
+
+            to {
+                transform: scale(1.2);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .box {
+                width: 90vw;
+                height: 80vh;
+            }
+
+            .wave {
+                top: 85%;
+            }
+
+            #weathercon {
+                font-size: 5em;
+            }
+
+            .info {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-heigth: 500px) {
+            .box {
+                height: 90vh;
+            }
+
+            .wave {
+                top: 115%;
+            }
+        }
+
+        body>span {
+            width: 100vw;
+            text-align: center;
+            color: gray;
+        }
+    </style>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="searchBar">
+        <input type="text" placeholder="Enter city name...">
+    </div>
+    <div class="box">
+        <div class="wave -one"></div>
+        <div class="wave -two"></div>
+        <div class="wave -three"></div>
+
+        <div id="weathercon">
+            <i class="fa-solid"></i>
+        </div>
+
+        <div class="info">
+            <h2 class="location">
+                <i class="fa-solid fa-street-view" style="color : white"></i> {%location%},{%country%}
+            </h2>
+            <p id="date"></p>
+            <h1 class="temp">{%tempVal%}&deg;C</h1>
+            <h3 class="tempMin_Max">Min {%tempMin%}&deg;C | Max {%tempMax%}&deg;C</h3>
+        </div>
+    </div>
+    <script>
+        const curDate = document.getElementById("date");
+        let weathercon = document.getElementById("weathercon");
+
+        const tempStatus = "{%tempSta%}";
+        console.log(tempStatus);
+
+        if (tempStatus == "Sunny") {
+            weathercon.innerHTML = "<i class='fa-solid fa-sun' style = 'color : #eccc68;'></i>";
+        } else if (tempStatus == "Clouds") {
+            weathercon.innerHTML = "<i class='fa-solid fa-cloud' style = 'color : #dfe4ea;'></i>";
+        } else if (tempStatus == "Rainy") {
+            weathercon.innerHTML = "<i class='fa-solid fa-cloud-rain' style = 'color : #a4b0be;'></i>";
+        } else {
+            weathercon.innerHTML = "<i class='fa-solid fa-cloud-moon' style = 'color : #312c38'></i>";
+        }
+
+        const getCurrentDay = () => {
+            var weekday = new Array(7);
+            weekday[0] = "Sun";
+            weekday[1] = "Mon";
+            weekday[2] = "Tue";
+            weekday[3] = "Wed";
+            weekday[4] = "Thu";
+            weekday[5] = "Fri";
+            weekday[6] = "Sat";
+
+            let currentDay = new Date();
+            let day = weekday[currentDay.getDay()];
+            return day;
+        };
+
+        const getCurrentTime = () => {
+            var monthName = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "June",
+                "July",
+                "Aug",
+                "Sept",
+                "Oct",
+                "Nov",
+                "Dec",
+            ];
+
+            var currentTime = new Date();
+            var month = monthName[currentTime.getMonth()];
+            var date = currentTime.getDate();
+
+            var hours = currentTime.getHours();
+            var mins = currentTime.getMinutes();
+
+            let periods = "AM";
+            if (hours > 11) {
+                periods = "PM";
+                if (hours > 12) hours -= 12;
+            }
+            if (date < 10) {
+                date = "0" + date;
+            }
+            if (mins < 10) {
+                mins = "0" + mins;
+            }
+            if (hours < 10) {
+                hours = "0" + hours;
+            }
+
+            return `${month} ${date} | ${hours}:${mins}${periods}`;
+        };
+
+        curDate.innerHTML = getCurrentDay() + " | " + getCurrentTime();
+    </script>
+</body>
+
+</html>
